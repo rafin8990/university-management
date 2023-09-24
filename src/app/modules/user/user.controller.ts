@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import userService from './user.service'
+import { userService } from './user.service'
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -18,6 +18,6 @@ const createUser = async (req: Request, res: Response) => {
   }
 }
 
-export default {
+export const userController = {
   createUser,
 }
