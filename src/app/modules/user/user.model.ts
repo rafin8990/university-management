@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose'
-import { IUser, userModel } from './user.interface'
+import { Schema, model } from 'mongoose';
+import { IUser, userModel } from './user.interface';
 
 const userSchema = new Schema<IUser>(
   {
@@ -16,23 +16,17 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
-    
-      student:{
-        type:Schema.Types.ObjectId,
-        ref:"Student"
-      }
+    student: {
+      type: Schema.Types.ObjectId,
+      ref: 'Student',
     },
-    {
-      faculty:{
-        type:Schema.Types.ObjectId,
-        ref:"Faculty"
-      }
+    faculty: {
+      type: Schema.Types.ObjectId,
+      ref: 'Faculty',
     },
-    {
-      admin:{
-        type:Schema.Types.ObjectId,
-        ref:"Admin"
-      }
+    admin: {
+      type: Schema.Types.ObjectId,
+      ref: 'Admin',
     },
   },
   {
@@ -41,6 +35,6 @@ const userSchema = new Schema<IUser>(
       virtuals: true,
     },
   },
-)
+);
 
-export const User = model<IUser, userModel>('User', userSchema)
+export const User = model<IUser, userModel>('User', userSchema);
