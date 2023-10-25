@@ -1,23 +1,26 @@
-import { Request, Response } from 'express'
-import { userService } from './user.service'
+import { Request, Response } from 'express';
+import { userService } from './user.service';
+import sendResponse from '../../../shared/sendResponse';
+import httpStatus from 'http-status';
 
-const createUser = async (req: Request, res: Response) => {
+const createStudent = async (req: Request, res: Response) => {
   try {
-    const { user } = req.body
-    const result = await userService.createUser(user)
-    res.status(200).json({
+    const { student, ...userData } = req.body;
+    const result = await userService.createStudent(student, userData);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      message: 'Student created successfully',
       success: true,
-      message: 'User created successfully',
       data: result,
-    })
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: 'failed to create user',
-    })
+      message: 'failed to create Student',
+    });
   }
-}
+};
 
 export const userController = {
-  createUser,
-}
+  createStudent,
+};

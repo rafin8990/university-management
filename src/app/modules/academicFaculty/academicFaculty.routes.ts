@@ -5,12 +5,12 @@ import { AcademicFacultyController } from './academicFaculty.controller'
 const router = express.Router()
 
 router.post(
-  '/',
+  '/create-faculty',
   validateRequest(AcademicfacultyValidation.createFacultyZodSchema),
   AcademicFacultyController.createFaculty,
 )
-
 router.get('/:id', AcademicFacultyController.getSinglefaculty)
+router.get('/', AcademicFacultyController.getAllFaculty)
 
 router.patch(
   '/id',
