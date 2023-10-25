@@ -44,6 +44,31 @@
             "date": 1698252935674,
             "name": "G:\\New File\\TypeScript\\university-management\\logs\\winston\\errors\\phu-2023-25-10-22-error.log",
             "hash": "e25c26361cc8bd8236cf3781c2d2c616e61e310b7e0215a9dacafee421fc93d4"
+        },
+        {
+            "date": 1698253806312,
+            "name": "G:\\New File\\TypeScript\\university-management\\logs\\winston\\errors\\phu-2023-25-10-23-error.log",
+            "hash": "cdcf198214c9a364388fa7e5e78c77c59cf2f7d0b86f9b3f3a304cd9d01b76c9"
+        },
+        {
+            "date": 1698258415451,
+            "name": "G:\\New File\\TypeScript\\university-management\\logs\\winston\\errors\\phu-2023-26-10-00-error.log",
+            "hash": "aa09f088482a0af8295b20620f52699cb140d90cdd12d0db96b228a7b25a201e"
+        },
+        {
+            "date": 1698261509616,
+            "name": "G:\\New File\\TypeScript\\university-management\\logs\\winston\\errors\\phu-2023-26-10-01-error.log",
+            "hash": "bf1764ba51e16d8cddf398fbaf2b9ef3e22dfee39758c5b217d990357cd1b55a"
+        },
+        {
+            "date": 1698270923961,
+            "name": "G:\\New File\\TypeScript\\university-management\\logs\\winston\\errors\\phu-2023-26-10-03-error.log",
+            "hash": "f0dd63095d439903d1652e851f122a503ed03deccb96b39cfdaeff614d1c6ffb"
+        },
+        {
+            "date": 1698271442888,
+            "name": "G:\\New File\\TypeScript\\university-management\\logs\\winston\\errors\\phu-2023-26-10-04-error.log",
+            "hash": "7f7d3ebce3a98c97c20cfbb3e625172e5e4eb4b84fafb2e0981a85b45af91d49"
         }
     ],
     "hashType": "sha256"
