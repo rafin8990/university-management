@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SortOrder } from 'mongoose';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
@@ -6,6 +7,9 @@ import { IPaginationOptions } from '../../../interfaces/pagination';
 import { IStudent, IStudentFilter } from './student.interface';
 import { studentSearchableFields } from './student.constants';
 import { Student } from './student.model';
+import ApiError from '../../../errors/ApiError';
+import httpStatus from 'http-status';
+import { User } from '../user/user.model';
 
 const getAllStudents = async (
   filters: IStudentFilter,
@@ -71,15 +75,68 @@ const updateStudent = async (
   id: string,
   payload: Partial<IStudent>,
 ): Promise<IStudent | null> => {
-  const result = await Student.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
-  });
+  const isExist = await Student.findOne({ id });
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student Does not exist');
+  }
+
+  const { name, guardian, localGuardian, ...studentData } = payload;
+
+  const updatedStudentData: Partial<IStudent> = { ...studentData };
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}` as keyof Partial<IStudent>;
+      (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+    });
+  }
+  if (guardian && Object.keys(guardian).length > 0) {
+    Object.keys(guardian).forEach(key => {
+      const guardianKey = `guardian.${key}` as keyof Partial<IStudent>;
+      (updatedStudentData as any)[guardianKey] =
+        guardian[key as keyof typeof guardian];
+    });
+  }
+  if (localGuardian && Object.keys(localGuardian).length > 0) {
+    Object.keys(localGuardian).forEach(key => {
+      const localGuardianKey =
+        `localGuardian.${key}` as keyof Partial<IStudent>;
+      (updatedStudentData as any)[localGuardianKey] =
+        localGuardian[key as keyof typeof localGuardian];
+    });
+  }
+
+  const result = await Student.findOneAndUpdate(
+    { id: id },
+    updatedStudentData,
+    {
+      new: true,
+    },
+  );
   return result;
 };
 
-const deleteStudent = async (id: string): Promise<IStudent | null> => {
-  const result = await Student.findByIdAndDelete(id);
-  return result;
+const deleteStudent = async (id: string): Promise<void> => {
+  const session = await Student.startSession();
+  session.startTransaction();
+  try {
+    const studentResult = await Student.findByIdAndDelete(id).session(session);
+
+    if (!studentResult) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Student Does not exist');
+    }
+    const userResult = await User.findByIdAndDelete(id).session(session);
+    if (studentResult && userResult) {
+      await session.commitTransaction();
+    } else {
+      await session.abortTransaction();
+    }
+  } catch (error) {
+    await session.abortTransaction();
+    throw error;
+  } finally {
+    session.endSession();
+  }
 };
 
 export const StudentService = {
