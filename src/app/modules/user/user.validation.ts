@@ -129,7 +129,7 @@ const createFacultyZodSchema = z.object({
 const createAdminZodSchema = z.object({
   body: z.object({
     password: z.string().optional(),
-    faculty: z.object({
+    admin: z.object({
       name: z.object({
         firstName: z.string({
           required_error: 'First Name Is Required',
