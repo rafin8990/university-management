@@ -15,5 +15,9 @@ router.post(
   validateRequest(userValidation.createFacultyZodSchema),
   userController.createFaculty,
 );
+router.post(
+  '/create-admin',
+  validateRequest(userValidation.createAdminZodSchema),
+);
 
 export const userRoutes = router;
