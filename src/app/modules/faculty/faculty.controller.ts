@@ -6,6 +6,7 @@ import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
 import { IFaculty, IFacultyFilter } from './faculty.interface';
 import { facultyFilterableFields } from './faculty.constants';
+import { FacultyService } from './faculty.service';
 
 const getAllFaculties = catchAsync(async (req: Request, res: Response) => {
   const filters: IFacultyFilter = {
@@ -14,7 +15,7 @@ const getAllFaculties = catchAsync(async (req: Request, res: Response) => {
   };
   const paginationOptions = pick(req.query, paginationFields);
 
-  const result = await FacultyService.getAllStudents(
+  const result = await FacultyService.getAllFaculties(
     filters,
     paginationOptions,
   );
@@ -31,7 +32,7 @@ const getAllFaculties = catchAsync(async (req: Request, res: Response) => {
 const getSinglefaculty = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await FacultyService.getSingleStudent(id);
+  const result = await FacultyService.getSingleFaculties(id);
 
   sendResponse<IFaculty>(res, {
     statusCode: httpStatus.OK,
@@ -45,7 +46,7 @@ const updateFaculty = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
 
-  const result = await FacultyService.updateStudent(id, updatedData);
+  const result = await FacultyService.updateFaculties(id, updatedData);
 
   sendResponse<IFaculty>(res, {
     statusCode: httpStatus.OK,
@@ -57,7 +58,7 @@ const updateFaculty = catchAsync(async (req: Request, res: Response) => {
 const deleteFaculty = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const result = await FacultyService.deleteStudent(id);
+  const result = await FacultyService.deleteFaculty(id);
 
   sendResponse<IFaculty>(res, {
     statusCode: httpStatus.OK,
