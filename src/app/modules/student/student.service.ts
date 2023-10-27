@@ -116,7 +116,9 @@ const updateStudent = async (
   return result;
 };
 
-const deleteStudent = async (id: string): Promise<void> => {
+const deleteStudent = async (
+  id: string,
+): Promise<IStudent | null | undefined> => {
   const session = await Student.startSession();
   session.startTransaction();
   try {
@@ -131,6 +133,7 @@ const deleteStudent = async (id: string): Promise<void> => {
     } else {
       await session.abortTransaction();
     }
+    return studentResult;
   } catch (error) {
     await session.abortTransaction();
     throw error;
