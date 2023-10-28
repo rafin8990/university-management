@@ -73,6 +73,7 @@ const createStudent = async (
 
   return newUserAllData;
 };
+
 const createFaculty = async (
   faculty: IFaculty,
   user: IUser,
@@ -121,12 +122,13 @@ const createFaculty = async (
 
   return newUserAllData;
 };
+
 const createAdmin = async (
   admin: IAdmin,
   user: IUser,
 ): Promise<IUser | null> => {
   if (!user.password) {
-    user.password = config.default_Faculty as string;
+    user.password = config.default_Admin as string;
   }
 
   user.role = 'admin';
