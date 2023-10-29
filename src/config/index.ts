@@ -10,4 +10,8 @@ export default {
   default_Admin: process.env.DEFAULT_ADMIN_PASS,
   bycrypt_sault_round: process.env.BCRYPT_SAULT_ROUND,
   env: process.env.NODE_ENV,
+  jwt_secret: process.env.JWT_SECRET,
+  jwt_expires_in: process.env.JWT_EXPIRES_IN,
+  jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
+  jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
 };
