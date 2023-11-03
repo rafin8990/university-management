@@ -1,23 +1,48 @@
-import express from 'express'
-import validateRequest from '../../middlewares/validateRequest'
-import { AcademicfacultyValidation } from './academicFaculty.validation'
-import { AcademicFacultyController } from './academicFaculty.controller'
-const router = express.Router()
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { AcademicfacultyValidation } from './academicFaculty.validation';
+import { AcademicFacultyController } from './academicFaculty.controller';
+import auth from '../../middlewares/auth';
+import { ENUM_USER_ROLE } from '../../../enums/user';
+const router = express.Router();
 
 router.post(
   '/create-faculty',
   validateRequest(AcademicfacultyValidation.createFacultyZodSchema),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   AcademicFacultyController.createFaculty,
-)
-router.get('/:id', AcademicFacultyController.getSinglefaculty)
-router.get('/', AcademicFacultyController.getAllFaculty)
+);
+router.get(
+  '/:id',
+  auth(
+    ENUM_USER_ROLE.SUPER_ADMIN,
+    ENUM_USER_ROLE.ADMIN,
+    ENUM_USER_ROLE.FACULTY,
+    ENUM_USER_ROLE.STUDENT,
+  ),
+  AcademicFacultyController.getSinglefaculty,
+);
+router.get(
+  '/',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicFacultyController.getAllFaculty,
+);
 
 router.patch(
   '/id',
   validateRequest(AcademicfacultyValidation.updateFacultyZodSchema),
+  auth(
+    ENUM_USER_ROLE.SUPER_ADMIN,
+    ENUM_USER_ROLE.ADMIN,
+    ENUM_USER_ROLE.FACULTY,
+  ),
   AcademicFacultyController.updateFaculty,
-)
+);
 
-router.delete('/:id', AcademicFacultyController.deleteFaculty)
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicFacultyController.deleteFaculty,
+);
 
-export const AcademicFacultyRoutes = router
+export const AcademicFacultyRoutes = router;
