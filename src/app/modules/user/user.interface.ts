@@ -7,6 +7,7 @@ export type IUser = {
   id: string;
   role: string;
   password: string;
+  passwordChangedAt?: Date;
   needsPasswordChange: true | false;
   student?: Types.ObjectId | IStudent;
   faculty?: Types.ObjectId | IFaculty;
