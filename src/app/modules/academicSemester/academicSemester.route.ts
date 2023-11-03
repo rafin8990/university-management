@@ -4,23 +4,40 @@ import validateRequest from '../../middlewares/validateRequest';
 
 import { AcademicSemesterController } from './academicSemester.controller';
 import { AcademicSemesterValidation } from './acdemicSemester.validation';
+import auth from '../../middlewares/auth';
+import { ENUM_USER_ROLE } from '../../../enums/user';
 const router = express.Router();
 
 router.post(
   '/create-semester',
   validateRequest(AcademicSemesterValidation.createAcademicSemesterZodSchema),
-  AcademicSemesterController.createSemester
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicSemesterController.createSemester,
 );
 
-router.get('/:id', AcademicSemesterController.getSingleSemester);
+router.get(
+  '/:id',
+  auth(
+    ENUM_USER_ROLE.SUPER_ADMIN,
+    ENUM_USER_ROLE.ADMIN,
+    ENUM_USER_ROLE.FACULTY,
+    ENUM_USER_ROLE.STUDENT,
+  ),
+  AcademicSemesterController.getSingleSemester,
+);
 
 router.patch(
   '/:id',
   validateRequest(AcademicSemesterValidation.updateAcademicSemesterZodSchema),
-  AcademicSemesterController.updateSemester
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicSemesterController.updateSemester,
 );
 
-router.delete('/:id', AcademicSemesterController.deleteSemester);
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  AcademicSemesterController.deleteSemester,
+);
 
 router.get('/', AcademicSemesterController.getAllSemesters);
 
