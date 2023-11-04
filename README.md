@@ -94,3 +94,7 @@ This is the documentation for the Authentication Service component of the Univer
 <li>POST /auth/login</li>
 <li>POST /auth/change-password</li>
 <li>POST /auth/refresh-token</li>
+
+### live link
+
+https://university-management-beta.vercel.app/
