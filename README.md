@@ -12,9 +12,10 @@ This is the documentation for the Authentication Service component of the Univer
 
 ### Admin
 
-1. Admin can log in and log out. 2. Admin can manage and update their profile.
-2. Admin can only update certain fields.
-3. Admin can manage user accounts:
+1. Admin can log in and log out.
+2. Admin can manage and update their profile.
+3. Admin can only update certain fields.
+4. Admin can manage user accounts:
    -Change Password
 
 ### Faculty
