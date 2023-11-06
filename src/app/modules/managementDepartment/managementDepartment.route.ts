@@ -50,4 +50,3 @@ router.get(
 );
 
 export const ManagementRoutes = router;
-//  management department
